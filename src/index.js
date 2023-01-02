@@ -36,27 +36,20 @@ class Board extends React.Component {
         return <Square
             value={this.props.squares[i]}
             onClick={() => this.props.onClick(i)}
+            key={i}
         />;
     }
 
     render() {
+        const boardRows = [0, 1, 2].map(row =>
+            <div className="board-row" key={row}>
+                {[0, 1, 2].map(col => this.renderSquare(row * 3 + col))}
+            </div>
+        )
+
         return (
             <div>
-                <div className="board-row">
-                    {this.renderSquare(0)}
-                    {this.renderSquare(1)}
-                    {this.renderSquare(2)}
-                </div>
-                <div className="board-row">
-                    {this.renderSquare(3)}
-                    {this.renderSquare(4)}
-                    {this.renderSquare(5)}
-                </div>
-                <div className="board-row">
-                    {this.renderSquare(6)}
-                    {this.renderSquare(7)}
-                    {this.renderSquare(8)}
-                </div>
+                {boardRows}
             </div>
 
         );
@@ -86,7 +79,7 @@ class Game extends React.Component {
             const desc = (index ?
                 `Go to move #${index}, position (${position})`:
                 'Go to game start')
-            const boldedDesc = index == lastIndex ? <b>{desc}</b> : desc
+            const boldedDesc = index === lastIndex ? <b>{desc}</b> : desc
             return (
                 <li key={index}>
                     <button onClick={() => this.jumpTo(index)}>{boldedDesc}</button>
