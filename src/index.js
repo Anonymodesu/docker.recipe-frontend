@@ -64,11 +64,13 @@ class Game extends React.Component {
                 squares: Array(9).fill(null),
                 move: null
             }],
-            xIsNext: true
+            xIsNext: true,
+            historyOrderAsc: true
         }
     }
 
     render() {
+        const historyOrderAsc = this.state.historyOrderAsc
         const history = this.state.history
         const lastIndex = history.length - 1
         const current = history[lastIndex]
@@ -86,6 +88,9 @@ class Game extends React.Component {
                 </li>
             )
         })
+        if (historyOrderAsc) {
+            moves.reverse()
+        }
 
         let status;
         if (winner) {
@@ -104,6 +109,13 @@ class Game extends React.Component {
                 </div>
                 <div className="game-info">
                     <div>{status}</div>
+                    <div>
+                        <button onClick={
+                            () => this.setState({historyOrderAsc: !historyOrderAsc})
+                        }>
+                            Reorder history
+                        </button>
+                    </div>
                     <ol>{moves}</ol>
                 </div>
             </div>
