@@ -69,17 +69,11 @@ class Game extends React.Component {
         }
     }
 
-    render() {
-        const historyOrderAsc = this.state.historyOrderAsc
-        const history = this.state.history
-        const lastIndex = history.length - 1
-        const current = history[lastIndex]
-        const winner = calculateWinner(current.squares)
-
+    renderGameInfo(history, historyOrderAsc, lastIndex, winner) {
         const moves = history.map((pointInTime, index) => {
             const position = [pointInTime.move % 3, Math.floor(pointInTime.move / 3)]
             const desc = (index ?
-                `Go to move #${index}, position (${position})`:
+                `Go to move #${index}, position (${position})` :
                 'Go to game start')
             const boldedDesc = index === lastIndex ? <b>{desc}</b> : desc
             return (
@@ -100,24 +94,36 @@ class Game extends React.Component {
         }
 
         return (
+            <div className="game-info">
+                <div>{status}</div>
+                <div>
+                    <button onClick={
+                        () => this.setState({ historyOrderAsc: !historyOrderAsc })
+                    }>
+                        Reorder history
+                    </button>
+                </div>
+                <ol>{moves}</ol>
+            </div>
+        )
+    }
+
+    render() {
+        const historyOrderAsc = this.state.historyOrderAsc
+        const history = this.state.history
+        const lastIndex = history.length - 1
+        const current = history[lastIndex]
+        const winner = calculateWinner(current.squares)
+
+        return (
             <div className="game">
                 <div className="game-board">
-                    <Board 
-                        squares = {current.squares}
-                        onClick = {(i) => this.handleClick(i)}
+                    <Board
+                        squares={current.squares}
+                        onClick={(i) => this.handleClick(i)}
                     />
                 </div>
-                <div className="game-info">
-                    <div>{status}</div>
-                    <div>
-                        <button onClick={
-                            () => this.setState({historyOrderAsc: !historyOrderAsc})
-                        }>
-                            Reorder history
-                        </button>
-                    </div>
-                    <ol>{moves}</ol>
-                </div>
+                {this.renderGameInfo(history, historyOrderAsc, lastIndex, winner)}
             </div>
         );
     }
@@ -127,7 +133,7 @@ class Game extends React.Component {
         const current = history[history.length - 1]
         const squares = current.squares.slice()
 
-        if(calculateWinner(squares) || squares[i]) {
+        if (calculateWinner(squares) || squares[i]) {
             return
         }
 
@@ -147,7 +153,7 @@ class Game extends React.Component {
             history: this.state.history.slice(0, step + 1),
             xIsNext: (step % 2) === 0,
         })
-    } 
+    }
 }
 
 // ========================================
