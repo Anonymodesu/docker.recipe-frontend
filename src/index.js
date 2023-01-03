@@ -94,6 +94,8 @@ class Game extends React.Component {
         let status;
         if (winningLine) {
             status = 'Winner: ' + winningLine[0]
+        } else if(lastIndex == 9) {
+            status = 'Draw'
         } else {
             status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O')
         }
