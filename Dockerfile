@@ -8,12 +8,15 @@ WORKDIR /app
 ENV PATH /app/node_modules/.bin:$PATH
 
 # install app dependencies
-COPY --chown=node:node package.json ./
-COPY --chown=node:node package-lock.json ./
-RUN npm install --silent
+COPY package.json ./
+COPY package-lock.json ./
+RUN mkdir node_modules && chown node:node node_modules
+RUN npm install
+
 
 # add app
-COPY --chown=node:node . ./
+COPY . ./
+
 
 # start app
 USER node
