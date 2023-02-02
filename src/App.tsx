@@ -1,7 +1,9 @@
 import './App.css';
 import logo from './logo.svg';
+import { loadJackdonsMeals } from './mock/dummyData';
 
 function App() {
+  loadJackdonsMeals()
   return (
     <div className="App">
       <header className="App-header">
