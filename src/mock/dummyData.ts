@@ -3,9 +3,7 @@ import jackdonsMeals from '../resources/jackdons_meals.csv'
 import { DefaultDict } from '../util/dataStructures';
 
 export function loadJackdonsMeals() {
-    let records: string[][] = [];
-    console.log(jackdonsMeals);
-    d3.csv(jackdonsMeals)
+    return d3.csv(jackdonsMeals)
         .then(rows => rows.map(row => {
             const ingredient = row["Ingredients"] as string;
             return Object.keys(row)
@@ -14,12 +12,8 @@ export function loadJackdonsMeals() {
         }))
         .then(recipes => recipes.flat()
             .reduce((recipeMap, [recipe, ingredient], _1, _2) => {
-                recipeMap.get(recipe).push(ingredient);
+                recipeMap.get(recipe).add(ingredient);
                 return recipeMap;
-            }, new DefaultDict<string, Array<string>>(() => []))
+            }, new DefaultDict<string, Set<string>>(() => new Set()))
         )
-        .then(recipes => console.log(recipes));
-
-
-    return records;
 }
