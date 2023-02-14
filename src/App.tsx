@@ -1,19 +1,17 @@
-import './App.css';
-import logo from './logo.svg';
-import { loadJackdonsMeals } from './mock/dummyData';
-import { RecipeList } from './pages/recipeSelect';
+import './App.css'
+import logo from './logo.svg'
+import { loadJackdonsMeals } from './mock/dummyData'
+import { RecipeList } from './pages/recipeSelect'
 import { useEffect, useState } from 'react'
-loadJackdonsMeals()
 
-function App() {
-  const [recipes, setRecipes] = useState(new Array<string>());
+function App (): JSX.Element {
+  const [recipes, setRecipes] = useState(new Array<string>())
 
-  useEffect(() =>{
-    console.log("Loading dummy Jackdon's meals");
+  useEffect(() => {
     loadJackdonsMeals().then(
-      recipeMap => setRecipes(Array.from(recipeMap.keys()))
-    )
-  }, []);
+      recipeMap => { setRecipes(Array.from(recipeMap.keys())) }
+    ).catch(reason => { console.log(reason) })
+  }, [])
 
   return (
     <div className="App">
@@ -35,7 +33,7 @@ function App() {
         <RecipeList recipeList={recipes}/>
       </div>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App

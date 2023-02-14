@@ -4,4 +4,7 @@ build:
 run:
 	docker compose up --remove-orphans --force-recreate	--renew-anon-volumes
 
-.PHONY: build run
+lint:
+	npx eslint --fix '**/*.{ts,tsx}'
+
+.PHONY: build run lint

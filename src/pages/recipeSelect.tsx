@@ -1,18 +1,19 @@
-function RecipeButton(props: {recipeName: string, onClick: () => void}) {
-    return <button onClick={props.onClick}>
+
+function RecipeButton (props: { recipeName: string, onClick: () => void }): JSX.Element {
+  return <button onClick={props.onClick}>
         {props.recipeName}
     </button>
 }
 
-export function RecipeList(props: {recipeList: Array<string>}) {
-    const recipes = props.recipeList.map((recipe) =>
+export function RecipeList (props: { recipeList: string[] }): JSX.Element {
+  const recipes = props.recipeList.map((recipe) =>
         <li key={recipe}>
             <RecipeButton
                 recipeName={recipe}
-                onClick={() => console.log(`Clicked ${recipe}`)}
+                onClick={() => { console.log(`Clicked ${recipe}`) }}
             />
         </li>
-    )
+  )
 
-    return <ol>{recipes}</ol>
+  return <ol>{recipes}</ol>
 }
