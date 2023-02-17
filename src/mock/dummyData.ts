@@ -1,9 +1,9 @@
 import * as d3 from 'd3'
 import jackdonsMeals from '../resources/jackdons_meals.csv'
-import { DefaultDict } from '../util/dataStructures'
+import { RecipeMap } from '../util/dataStructures'
 
 // Maps recipes to ingredients
-export async function loadJackdonsMeals (): Promise<Map<string, Set<string>>> {
+export async function loadJackdonsMeals (): Promise<RecipeMap> {
   return await d3.csv(jackdonsMeals)
     .then(rows => rows.map(row => {
       const ingredient = row.Ingredients as string
@@ -15,6 +15,6 @@ export async function loadJackdonsMeals (): Promise<Map<string, Set<string>>> {
       .reduce((recipeMap, [recipe, ingredient], _1, _2) => {
         recipeMap.get(recipe).add(ingredient)
         return recipeMap
-      }, new DefaultDict<string, Set<string>>(() => new Set()))
+      }, new RecipeMap())
     )
 }

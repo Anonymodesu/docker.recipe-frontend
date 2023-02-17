@@ -1,15 +1,17 @@
 import './App.css'
 import logo from './logo.svg'
 import { loadJackdonsMeals } from './mock/dummyData'
-import { RecipeList } from './pages/recipeSelect'
+import { IngredientList, RecipeList } from './pages/recipeSelect'
 import { useEffect, useState } from 'react'
+import { RecipeMap } from './util/dataStructures'
 
 function App (): JSX.Element {
-  const [recipes, setRecipes] = useState(new Array<string>())
+  const [recipeMap, setRecipeMap] = useState(new RecipeMap())
+  const [selectedRecipes, setSelectedRecipes] = useState(new Set<string>())
 
   useEffect(() => {
     loadJackdonsMeals().then(
-      recipeMap => { setRecipes(Array.from(recipeMap.keys())) }
+      recipeMap => { setRecipeMap(recipeMap) }
     ).catch(reason => { console.log(reason) })
   }, [])
 
@@ -18,7 +20,16 @@ function App (): JSX.Element {
       <div className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <div>
-          <RecipeList recipeList={recipes}/>
+          <RecipeList
+            recipeList={Array.from(recipeMap.keys())}
+            onClick={(recipe: string) => { setSelectedRecipes(new Set(selectedRecipes.add(recipe))) }}
+          />
+        </div>
+        <div>
+          <IngredientList
+            selectedRecipes={selectedRecipes}
+            recipeMap={recipeMap}
+          />
         </div>
       </div>
 

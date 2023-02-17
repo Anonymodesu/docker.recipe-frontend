@@ -15,3 +15,10 @@ export class DefaultDict<K, V> extends Map<K, V> {
     this.defaultVal = defaultVal
   }
 }
+
+// Map recipes to ingredients
+export class RecipeMap extends DefaultDict<string, Set<string>> {
+  constructor (entries: Iterable<readonly [string, Set<string>]> | null | undefined = undefined) {
+    super(() => new Set(), entries)
+  }
+}
