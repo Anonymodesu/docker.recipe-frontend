@@ -22,7 +22,8 @@ function App (): JSX.Element {
         <div>
           <RecipeList
             recipeList={Array.from(recipeMap.keys())}
-            onClick={(recipe: string) => { setSelectedRecipes(new Set(selectedRecipes.add(recipe))) }}
+            selectRecipe={(recipe: string) => { selectedRecipes.add(recipe); setSelectedRecipes(new Set(selectedRecipes)) }}
+            removeRecipe={(recipe: string) => { selectedRecipes.delete(recipe); setSelectedRecipes(new Set(selectedRecipes)) }}
           />
         </div>
         <div>
