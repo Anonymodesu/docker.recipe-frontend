@@ -1,5 +1,5 @@
 import { DefaultDict } from '../util/dataStructures'
-import { useState } from 'react'
+import React, { useState } from 'react'
 
 function RecipeButton (props: { recipeName: string, selectRecipe: () => void, removeRecipe: () => void }): JSX.Element {
   const [usingRecipe, setUsingRecipe] = useState(false)
@@ -27,14 +27,19 @@ export function RecipeList (props: { recipeList: string[], selectRecipe: (recipe
     </li>
     )
 
-  return <ol>{recipes}</ol>
+  return (
+    <React.Fragment>
+      <h2>Recipes</h2>
+      <ol>{recipes}</ol>
+    </React.Fragment>
+  )
 }
 
 function IngredientButton (props: { ingredientName: string, count: number }): JSX.Element {
   const [boughtIngredient, setBoughtIngredient] = useState(false)
   return <button
     onClick={() => { setBoughtIngredient(!boughtIngredient) }}
-    style={{ color: boughtIngredient ? 'white' : 'black' }}
+    style={{ textDecoration: boughtIngredient ? 'line-through' : 'initial' }}
   >
     {props.ingredientName}: {props.count}
   </button>
@@ -60,5 +65,10 @@ export function IngredientList (props: { selectedRecipes: Set<string>, recipeMap
       </li>
     )
 
-  return <ol>{ingredientList}</ol>
+  return (
+      <React.Fragment>
+        <h2>Ingredients</h2>
+        <ol>{ingredientList}</ol>
+      </React.Fragment>
+  )
 }
