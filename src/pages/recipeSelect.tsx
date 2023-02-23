@@ -1,12 +1,20 @@
 import { DefaultDict } from '../util/dataStructures'
-import React, { useState } from 'react'
+import React from 'react'
 
-function RecipeButton (props: { recipeName: string, selectRecipe: () => void, removeRecipe: () => void }): JSX.Element {
-  const [usingRecipe, setUsingRecipe] = useState(false)
+function RecipeButton (props: {
+  recipeName: string
+  selectedRecipes: Set<string>
+  setSelectedRecipes: (ingredients: Set<string>) => void
+}): JSX.Element {
+  const usingRecipe = props.selectedRecipes.has(props.recipeName)
   return <button
     onClick={() => {
-      usingRecipe ? props.removeRecipe() : props.selectRecipe()
-      setUsingRecipe(!usingRecipe)
+      if (usingRecipe) {
+        props.selectedRecipes.delete(props.recipeName)
+      } else {
+        props.selectedRecipes.add(props.recipeName)
+      }
+      props.setSelectedRecipes(new Set(props.selectedRecipes))
     }}
     style={{ color: usingRecipe ? 'red' : 'black' }}
     >
@@ -14,15 +22,19 @@ function RecipeButton (props: { recipeName: string, selectRecipe: () => void, re
   </button>
 }
 
-export function RecipeList (props: { recipeList: string[], selectRecipe: (recipe: string) => void, removeRecipe: (recipe: string) => void }): JSX.Element {
+export function RecipeList (props: {
+  recipeList: string[]
+  selectedRecipes: Set<string>
+  setSelectedRecipes: (ingredients: Set<string>) => void
+}): JSX.Element {
   const recipes = props.recipeList
     .sort(([recipeA], [recipeB]) => recipeA.localeCompare(recipeB))
     .map((recipe) =>
     <li key={recipe}>
       <RecipeButton
         recipeName={recipe}
-        selectRecipe={() => { props.selectRecipe(recipe) }}
-        removeRecipe={() => { props.removeRecipe(recipe) }}
+        selectedRecipes={props.selectedRecipes}
+        setSelectedRecipes={props.setSelectedRecipes}
       />
     </li>
     )
@@ -35,17 +47,34 @@ export function RecipeList (props: { recipeList: string[], selectRecipe: (recipe
   )
 }
 
-function IngredientButton (props: { ingredientName: string, count: number }): JSX.Element {
-  const [boughtIngredient, setBoughtIngredient] = useState(false)
+function IngredientButton (props: {
+  ingredient: string
+  count: number
+  boughtIngredients: Set<string>
+  setBoughtIngredients: (ingredients: Set<string>) => void
+}): JSX.Element {
+  const boughtIngredient = props.boughtIngredients.has(props.ingredient)
   return <button
-    onClick={() => { setBoughtIngredient(!boughtIngredient) }}
+    onClick={() => {
+      if (boughtIngredient) {
+        props.boughtIngredients.delete(props.ingredient)
+      } else {
+        props.boughtIngredients.add(props.ingredient)
+      }
+      props.setBoughtIngredients(new Set(props.boughtIngredients))
+    }}
     style={{ textDecoration: boughtIngredient ? 'line-through' : 'initial' }}
   >
-    {props.ingredientName}: {props.count}
+    {props.ingredient}: {props.count}
   </button>
 }
 
-export function IngredientList (props: { selectedRecipes: Set<string>, recipeMap: Map<string, Set<string>> }): JSX.Element {
+export function IngredientList (props: {
+  selectedRecipes: Set<string>
+  recipeMap: Map<string, Set<string>>
+  boughtIngredients: Set<string>
+  setBoughtIngredients: (ingredients: Set<string>) => void
+}): JSX.Element {
   const ingredientCounts = new DefaultDict<string, number>(0)
   props.selectedRecipes.forEach(recipe => {
     props.recipeMap.get(recipe)?.forEach(ingredient =>
@@ -59,8 +88,10 @@ export function IngredientList (props: { selectedRecipes: Set<string>, recipeMap
     .map(([ingredient, count]) =>
       <li key={ingredient}>
         <IngredientButton
-          ingredientName={ingredient}
+          ingredient={ingredient}
           count={count}
+          boughtIngredients={props.boughtIngredients}
+          setBoughtIngredients={props.setBoughtIngredients}
         />
       </li>
     )

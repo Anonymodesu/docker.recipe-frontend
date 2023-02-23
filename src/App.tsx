@@ -8,6 +8,7 @@ import { RecipeMap } from './util/dataStructures'
 function App (): JSX.Element {
   const [recipeMap, setRecipeMap] = useState(new RecipeMap())
   const [selectedRecipes, setSelectedRecipes] = useState(new Set<string>())
+  const [boughtIngredients, setBoughtIngredients] = useState(new Set<string>())
 
   useEffect(() => {
     loadJackdonsMeals().then(
@@ -22,14 +23,16 @@ function App (): JSX.Element {
         <div>
           <RecipeList
             recipeList={Array.from(recipeMap.keys())}
-            selectRecipe={(recipe: string) => { selectedRecipes.add(recipe); setSelectedRecipes(new Set(selectedRecipes)) }}
-            removeRecipe={(recipe: string) => { selectedRecipes.delete(recipe); setSelectedRecipes(new Set(selectedRecipes)) }}
+            selectedRecipes={selectedRecipes}
+            setSelectedRecipes={setSelectedRecipes}
           />
         </div>
         <div>
           <IngredientList
             selectedRecipes={selectedRecipes}
             recipeMap={recipeMap}
+            boughtIngredients={boughtIngredients}
+            setBoughtIngredients={setBoughtIngredients}
           />
         </div>
       </div>
