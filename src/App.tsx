@@ -21,6 +21,16 @@ function App (): JSX.Element {
       <div className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <div>
+          <button
+            onClick={() => {
+              setSelectedRecipes(new Set())
+              setBoughtIngredients(new Set())
+            }}
+          >
+            Reset
+          </button>
+        </div>
+        <div>
           <RecipeList
             recipeList={Array.from(recipeMap.keys())}
             selectedRecipes={selectedRecipes}
