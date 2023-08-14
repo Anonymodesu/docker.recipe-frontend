@@ -1,0 +1,10 @@
+version: "3.9"
+services:
+  test:
+    image: docker.recipe-frontend
+    entrypoint: npm test
+    volumes:
+      - "${PWD}:/app"
+      - "/app/node_modules"
+    environment:
+      CI: 'true'

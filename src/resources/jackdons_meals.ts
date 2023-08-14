@@ -1,4 +1,5 @@
-Ingredients,Corn Flakes Chilaquiles,Oatmeal,Banana Oatmeal Pancake,Corn Flakes French Toast,Avocado Salmon Toast,Tasteless fried rice,Claypot Rice,Burger,Rice Salad,Bacon and Egg Roll,Shou Zhua Bing,Freya's special corn bread,Freyas special egg bread,Sponge (pan)cake,Butter chicken,Spicy Pancetta,Congee,Pasta bake,Pizza,Chia bowl,Noodle soup,Beef Wrap,Mashed Potato,Sheet pan Sausage,Pad Thai,Risotto
+export const sampleMeals =
+`Ingredients,Corn Flakes Chilaquiles,Oatmeal,Banana Oatmeal Pancake,Corn Flakes French Toast,Avocado Salmon Toast,Tasteless fried rice,Claypot Rice,Burger,Rice Salad,Bacon and Egg Roll,Shou Zhua Bing,Freya's special corn bread,Freyas special egg bread,Sponge (pan)cake,Butter chicken,Spicy Pancetta,Congee,Pasta bake,Pizza,Chia bowl,Noodle soup,Beef Wrap,Mashed Potato,Sheet pan Sausage,Pad Thai,Risotto
 Aioli,,,,,,,,,x,,,,,,,,,,,,,x,,,,
 Avocado,,,,,X,,,,,x,,,,,,,,,,,,,,,,
 Bacon,,,,,,,,,X,X,,,X,,,X,,,,,,,,X,,
@@ -77,4 +78,4 @@ Vinegar,,,,,,,,,,,,,,,,,,,,,,X,,,,
 Worcestershire sauce,,,,,,,,X,,,,,,,,,,,,,,,,,,
 Yeast,,,,,,,,,,,,,,,,,,,X,,,,,,,
 Yoghurt,,,,,x,,,,,,,,,,,,,,,,,,,,,
-,,,,  ,,,,,,,,,,,,,,,,,,,,,,
+`
