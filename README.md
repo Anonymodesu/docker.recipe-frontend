@@ -1,16 +1,13 @@
+[![Docker Image CI](https://github.com/Anonymodesu/docker.recipe-frontend/actions/workflows/docker-test.yml/badge.svg)](https://github.com/Anonymodesu/docker.recipe-frontend/actions/workflows/docker-test.yml)
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ```
-docker run \
-    -it \
-    --rm \
-    -v ${PWD}:/app \
-    -v /app/node_modules \
-    -p 3001:3000 \
-    -e CHOKIDAR_USEPOLLING=true \
-    docker.recipe-frontend
+make build
+make run
+make test
 ```
 
 ## Available Scripts
