@@ -35,4 +35,5 @@ check-lint:
 .PHONY: build check-lint clean lint run test
 
 clean:
-	rm $(TIMESTAMP_FILE)
+	-docker rmi $(DOCKER_IMAGE_FULL)
+	-rm $(TIMESTAMP_FILE)
