@@ -24,10 +24,15 @@ test:
 		--renew-anon-volumes \
 		--exit-code-from test
 
-lint:
-	npx eslint --fix '**/*.{ts,tsx}'
+lint: FIX := --fix
+lint: check-lint
 
-.PHONY: build run lint test clean
+check-lint:
+	DOCKER_IMAGE=$(DOCKER_IMAGE_FULL) \
+	docker compose run --rm frontend \
+		npx eslint $(FIX) '**/*.{ts,tsx}'
+
+.PHONY: build check-lint clean lint run test
 
 clean:
 	rm $(TIMESTAMP_FILE)
