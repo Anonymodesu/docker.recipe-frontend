@@ -63,7 +63,7 @@ function IngredientButton (props: {
       }
       props.setBoughtIngredients(new Set(props.boughtIngredients))
     }}
-    style={{ textDecoration: boughtIngredient ? 'line-through' : 'initial' }}
+    style={{ textDecoration: boughtIngredient ? "line-through" : 'initial' }}
   >
     {props.ingredient}: {props.count}
   </button>
